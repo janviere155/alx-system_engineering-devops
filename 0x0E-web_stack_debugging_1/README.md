@@ -1,1 +1,1 @@
-# Scripts Functionalities
+Web stacj debugging
