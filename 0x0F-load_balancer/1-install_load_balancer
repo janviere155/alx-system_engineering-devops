@@ -1,37 +1,55 @@
 #!/usr/bin/env bash
-# 
-# Configure Nginx so that its HTTP response contains
-# a custom header
-#
+# install load balancer
 
-# Update packages
-sudo apt update
 
-# Add HAProxy PPA
-sudo apt install -y software-properties-common
-sudo add-apt-repository ppa:vbernat/haproxy-1.8 -y
-sudo apt update
+echo -e "Updating and doing some minor checks...\n"
 
-# Install HAProxy
-sudo apt install -y haproxy=1.8.\*
+function install() {
+	command -v "$1" &> /dev/null
 
-hgproxy_conf_file="/etc/haproxy/haproxy.cfg"
+	#shellcheck disable=SC2181
+	if [ $? -ne 0 ]; then
+		echo -e "	Installing: $1\n"
+		sudo apt-get update -y -qq && \
+			sudo apt-get install -y "$1" -qq
+		echo -e "\n"
+	else
+		echo -e "	${1} is already installed.\n"
+	fi
+}
 
-# Configure Load Balancer
-fname="frontend http"
-fbind="bind *:80"
-fmode="mode http"
-fdefault="default_backend web-backend"
-frontend="$fname\n\t$fbind\n\t$fmode\n\t$fdefault\n"
+install haproxy #install haproxy
 
-bname="backend web-backend"
-bbalance="balance roundrobin"
-bserver1="server web1 35.229.93.37:80 check"
-bserver2="server web2 54.196.213.127:80 check"
-backend="$bname\n\t$bbalance\n\t$bserver1\n\t$bserver2"
+echo -e "\nSetting up some minor stuff.\n"
 
-sudo sed -i "$ a $frontend" $hgproxy_conf_file
-sudo sed -i "$ a $backend" $hgproxy_conf_file
+# backup default server config file
+sudo cp /etc/haproxy/haproxy.cfg haproxy_default.backup
 
-# Restart HAProxy
-sudo service haproxy restart
+server_config=\
+"
+defaults
+  mode http
+  timeout client 15s
+  timeout connect 10s
+  timeout server 15s
+  timeout http-request 10s
+frontend abdul-malik-tech-frontend
+    bind *:80
+    default_backend abdul-malik-tech-backend
+backend abdul-malik-tech-backend
+    balance roundrobin
+    server 151666-web-01 54.197.46.67:80 check
+    server 151666-web-02 34.239.255.12:80 check
+"
+
+# shellcheck disable=SC2154
+echo "$server_config" | sudo dd status=none of=/etc/haproxy/haproxy.cfg
+
+# enable haproxy to be started by init script
+echo "ENABLED=1" | sudo dd status=none of=/etc/default/haproxy
+
+if [ "$(pgrep -c haproxy)" -le 0 ]; then
+	sudo service haproxy start
+else
+	sudo service haproxy restart
+fi
