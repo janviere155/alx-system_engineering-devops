@@ -1,32 +1,37 @@
-# 0x08. Networking basics #1
+0x08. Networking basics #1
+DevOps
+Network
+SysAdmin
+ By: Sylvain Kalache
+ Weight: 1
+ Project will start Feb 1, 2023 6:00 AM, must end by Feb 3, 2023 6:00 AM
+ Checker will be released at Feb 3, 2023 6:00 AM
+ An auto review will be launched at the deadline
 
-## Resource
 
-- [What is localhost](https://en.wikipedia.org/wiki/Localhost)
-- [What is 0.0.0.0](https://en.wikipedia.org/wiki/0.0.0.0)
-- [What is the hosts file](https://www.makeuseof.com/tag/modify-manage-hosts-file-linux/)
-- [Netcat examples](https://www.thegeekstuff.com/2012/04/nc-command-examples/)
+Resources
+Read or watch:
 
-## Tasks
+What is localhost
+What is 0.0.0.0
+What is the hosts file
+Netcat examples
+man or help:
 
-<details>
-<summary><a href="./0-change_your_home_IP">0. Change your home IP</a></summary><br>
-<a href='https://postimg.cc/949cJmZ5' target='_blank'><img src='https://i.postimg.cc/W4Wtpt43/image.png' border='0' alt='image'/></a>
-<ul>
-  <li>Links from screenshot
-  <ul>
-      <li><a href="https://web.archive.org/web/20171117023601/http://blog.jonathanargentiero.com/docker-sed-cannot-rename-etcsedl8ysxl-device-or-resource-busy/">Read this because the checker is running on docker</a></li>
-  </ul>
-  </li>
-</ul>
-</details>
+ifconfig
+telnet
+nc
+cut
+Learning Objectives
+At the end of this project, you are expected to be able to explain to anyone, without the help of Google:
 
-<details>
-<summary><a href="./1-show_attached_IPs">1. Show attached IPs</a></summary><br>
-<a href='https://postimages.org/' target='_blank'><img src='https://i.postimg.cc/Kjn0h65Z/image.png' border='0' alt='image'/></a>
-</details>
-
-<details>
-<summary><a href="./100-port_listening_on_localhost">2. Port listening on localhost</a></summary><br>
-<a href='https://postimages.org/' target='_blank'><img src='https://i.postimg.cc/9QTZ8dJh/image.png' border='0' alt='image'/></a>
-</details>
+General
+What is localhost/127.0.0.1
+What is 0.0.0.0
+What is /etc/hosts
+How to display your machine’s active network interfaces
+Copyright - Plagiarism
+You are tasked to come up with solutions for the tasks below yourself to meet with the above learning objectives.
+You will not be able to meet the objectives of this or any following project by copying and pasting someone else’s work.
+You are not allowed to publish any content of this project.
+Any form of plagiarism is strictly forbidden and will result in removal from the program.
